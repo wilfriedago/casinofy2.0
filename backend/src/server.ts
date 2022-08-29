@@ -1,7 +1,8 @@
+import "dotenv/config";
 import db from "./Config/database.config";
 import app from "./app";
 
-const port: number = 9000;
+const port = process.env.SERVER_PORT;
 
 db.sync().then(() => {
   console.log("🚀 Connection to the database established 🚀");

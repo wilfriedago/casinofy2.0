@@ -1,10 +1,11 @@
 import express from "express";
-import UserRouter from "./Http/Routes/UserRouter";
+import { UserRouter, GameRouter } from "./Routes";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/v1/users/", UserRouter);
+app.use("/v1/games", GameRouter);
+app.use("/v1/users", UserRouter);
 
 export default app;
