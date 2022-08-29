@@ -6,19 +6,20 @@ Please consider use HTTPS on your server, before use password
 
 - [x] Database Configuration
 - [x] Middleware for handling error
+- [] Reinstall dependencies
 
 ### User
 
-- [] Model for User
-- [] Validator for User
-- [] Controller for User
+- [x] Model for User
+- [x] Validator for User
+- [x] Controller for User
 - [x] Routes for User
 
 ### Game
 
-- [] Model for Game
+- [x] Model for Game
 - [] Validator for Game
-- [] Controller for Game
+- [x] Controller for Game
 - [] Routes for Game
 
 ### Transaction
