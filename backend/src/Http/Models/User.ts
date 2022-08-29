@@ -1,8 +1,8 @@
-import { DataTypes, Model } from "sequelize";
 import db from "../../Config/database.config";
+import Game from "./Game";
+import { DataTypes, Model } from "sequelize";
 
 // TODO : Implement password field
-
 interface UserAttributes {
   id: string;
   firstname: string;
@@ -14,7 +14,9 @@ interface UserAttributes {
   isConnected: boolean;
 }
 
-export default class User extends Model<UserAttributes> {}
+class User extends Model<UserAttributes> {
+  declare id: string;
+}
 
 User.init(
   {
@@ -34,6 +36,7 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     /** password: {
       type: DataTypes.STRING,
@@ -59,3 +62,7 @@ User.init(
     tableName: "users",
   }
 );
+
+// User.hasMany(Game);
+
+export default User;

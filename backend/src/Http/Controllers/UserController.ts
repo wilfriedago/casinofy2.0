@@ -9,8 +9,8 @@ class UserController {
   async create(req: Request, res: Response) {
     const id = uuidv4();
     try {
-      const record = await User.create({ ...req.body, id });
-      return res.status(200).json({ record, msg: "User created successfully" });
+      const user = await User.create({ ...req.body, id });
+      return res.status(200).json({ user, msg: "User created successfully" });
     } catch (error) {
       return res.status(500).json({ msg: "Failed to create user record", status: 500 });
     }
@@ -24,8 +24,8 @@ class UserController {
       const limit = (req.query.limit as number | undefined) || 10;
       const offset = req.query.offset as number | undefined;
 
-      const records = await User.findAndCountAll({ where: {}, limit, offset });
-      return res.status(200).json(records);
+      const users = await User.findAndCountAll({ where: {}, limit, offset });
+      return res.status(200).json(users);
     } catch (error) {
       return res.status(500).json({ msg: "Failed to read users records", status: 500 });
     }
@@ -37,10 +37,10 @@ class UserController {
   async readByID(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const record = await User.findOne({ where: { id } });
+      const user = await User.findOne({ where: { id } });
 
-      return record
-        ? res.status(200).json(record)
+      return user
+        ? res.status(200).json(user)
         : res.status(404).json({ msg: "Cannot find existing record for this user id", status: 404 });
     } catch (error) {
       return res.status(500).json({ msg: "Failed to read user record", status: 500 });
@@ -53,16 +53,16 @@ class UserController {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const record = await User.findOne({ where: { id } });
+      const user = await User.findOne({ where: { id } });
 
-      if (!record) return res.status(404).json({ msg: "Cannot find existing record for this user id", status: 404 });
+      if (!user) return res.status(404).json({ msg: "Cannot find existing record for this user id", status: 404 });
 
-      const updatedRecord = await record.update({
+      const updatedUser = await user.update({
         // TODO : Handle this better way !
-        isConnected: !record.getDataValue("isConnected"),
+        isConnected: !user.getDataValue("isConnected"),
       });
 
-      return res.status(200).json(updatedRecord);
+      return res.status(200).json(updatedUser);
     } catch (error) {
       return res.status(500).json({ msg: "Failed to update user record", status: 500 });
     }
@@ -74,13 +74,13 @@ class UserController {
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const record = await User.findOne({ where: { id } });
+      const user = await User.findOne({ where: { id } });
 
-      if (!record) return res.status(404).json({ msg: "Cannot find existing record for this user id", status: 404 });
+      if (!user) return res.status(404).json({ msg: "Cannot find existing record for this user id", status: 404 });
 
-      const deletedRecord = await record.destroy();
+      const deletedUser = await user.destroy();
 
-      return res.status(200).json(deletedRecord);
+      return res.status(200).json(deletedUser);
     } catch (error) {
       return res.status(500).json({ msg: "Failed to delete user record", status: 500 });
     }
