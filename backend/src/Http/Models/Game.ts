@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import db from "../../config/database.config";
+import db from "../../Config/database.config";
 import User from "./User";
 
 interface GameAttributes {
